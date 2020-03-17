@@ -78,10 +78,10 @@ public class TechFragment extends Fragment implements LoadListView.ILoadListener
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getContext(), ShowNewsActivity.class);
 
-                intent.putExtra("title",   newsList.get(i - mListView.getHeaderViewsCount()).getNews_title());
-                intent.putExtra("url",     newsList.get(i - mListView.getHeaderViewsCount()).getNews_url());
-                intent.putExtra("date",    newsList.get(i - mListView.getHeaderViewsCount()).getDate());
-                intent.putExtra("author",  newsList.get(i - mListView.getHeaderViewsCount()).getAuthor_name());
+                intent.putExtra("title", newsList.get(i - mListView.getHeaderViewsCount()).getNews_title());
+                intent.putExtra("url", newsList.get(i - mListView.getHeaderViewsCount()).getNews_url());
+                intent.putExtra("date", newsList.get(i - mListView.getHeaderViewsCount()).getDate());
+                intent.putExtra("author", newsList.get(i - mListView.getHeaderViewsCount()).getAuthor_name());
                 intent.putExtra("pic_url", newsList.get(i - mListView.getHeaderViewsCount()).getNews_picurl());
                 startActivity(intent);
                 //添加Activity过场动画
@@ -101,7 +101,7 @@ public class TechFragment extends Fragment implements LoadListView.ILoadListener
             public void run() {
                 String jsonData = HttpUtils.requestHttp(url);
                 parseJSONWithGSON(jsonData);
-                System.out.println("啊哈1"+jsonData);
+                System.out.println("啊哈1" + jsonData);
             }
         }).start();
     }
@@ -114,7 +114,7 @@ public class TechFragment extends Fragment implements LoadListView.ILoadListener
             JSONObject jsonObject = new JSONObject(jsonData);
             JSONArray jsonArray = jsonObject.getJSONArray("T1348647853363");
             newsList.clear();
-            for (int i = 0; i <jsonArray.length(); i++) {
+            for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject json_news = jsonArray.getJSONObject(i);
 
                 try {
@@ -233,7 +233,7 @@ public class TechFragment extends Fragment implements LoadListView.ILoadListener
             public void run() {
                 String jsonData = HttpUtils.requestHttp(url);
                 parseJSONWithGSON_Load(jsonData);
-                System.out.println("啊哈1"+jsonData);
+                System.out.println("啊哈1" + jsonData);
             }
         }).start();
 

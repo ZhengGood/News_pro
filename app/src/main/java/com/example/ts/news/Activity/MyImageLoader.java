@@ -11,8 +11,7 @@ public class MyImageLoader extends ImageLoader {
 
     @Override
     public void displayImage(Context context, Object path, ImageView imageView) {
-//        imageView.setImageResource(((BannerItem) path).pic);
-        Glide.with(context).load((String) path).into(imageView);
+        Glide.with(context).load((String) path).into(imageView);//加载图片
     }
 
 

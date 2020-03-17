@@ -4,7 +4,7 @@
         该动画效果:从完全透明到完全不透明，持续1秒钟
     -->
     <scale
-        android:duration="200"
+        android:duration="400"
         android:fillAfter="false"
         android:fromXScale="1.0"
         android:fromYScale="1.0"
@@ -15,11 +15,11 @@
         android:toYScale="0.5" />
 
 
-<!--    <alpha-->
-<!--        android:fromAlpha="1.0"-->
-<!--        android:toAlpha="1.0"-->
-<!--        android:duration="5000"-->
-<!--        android:interpolator="@android:anim/decelerate_interpolator"></alpha>-->
+    <!--    <alpha-->
+    <!--        android:fromAlpha="1.0"-->
+    <!--        android:toAlpha="1.0"-->
+    <!--        android:duration="5000"-->
+    <!--        android:interpolator="@android:anim/decelerate_interpolator"></alpha>-->
     <!--
         透明度控制动画效果 alpha
         浮点型值：

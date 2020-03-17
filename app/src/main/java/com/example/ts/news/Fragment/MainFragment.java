@@ -1,11 +1,11 @@
 package com.example.ts.news.Fragment;
 
 import android.content.ActivityNotFoundException;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.support.annotation.UiThread;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -30,7 +30,9 @@ import com.example.ts.news.Utils.TimeCount;
 import com.example.ts.news.day;
 import com.google.gson.Gson;
 import com.youth.banner.Banner;
+
 import com.youth.banner.BannerConfig;
+import com.youth.banner.listener.OnBannerListener;
 
 import org.json.JSONException;
 
@@ -65,7 +67,8 @@ public class MainFragment extends Fragment {
     private SportFragment sport_fragment;
     private MiliFragment mili_fragment;
     private Banner banner;
-    private String url = "http://api.tianapi.com/bulletin/index?key=81c0699ae798c4a8066c2df7a20e4e52&num=10&rand=1";
+    private String url = "http://api.tianapi.com/bulletin/index?key=81c0699ae798c4a8066c2df7a20e4e52&rand=1";
+
     //社会新闻
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -98,7 +101,6 @@ public class MainFragment extends Fragment {
         fragmentList.add(mili_fragment);
 
 
-
         titleList = new ArrayList<>();
         titleList.add("每日头条");
         titleList.add("财经资讯");
@@ -123,6 +125,7 @@ public class MainFragment extends Fragment {
             //建个集合用来存放图片url的地址
             private List<String> picUrlList;
             private List<String> title;
+            private List<String> imgurl;
             //此集合是bean解析过来的集合
             private List<banner.NewslistBean> list;
 
@@ -147,10 +150,12 @@ public class MainFragment extends Fragment {
                 //设全局此集合专门用来存放图片url地址的
                 picUrlList = new ArrayList<String>();
                 title = new ArrayList<String>();
-                for (int i = 0; i < list.size(); i++) {
+                imgurl = new ArrayList<String>();
+                for (int i = 1; i < list.size(); i++) {
                     //循环把图片地址添加到string泛型的集合里
                     picUrlList.add(list.get(i).getImgsrc());
                     title.add(list.get(i).getTitle());
+                    imgurl.add(list.get(i).getUrl());
                 }
                 Log.e("++++++++", "这是专门存放图片url集合里的数据：" + picUrlList);
                 Log.e("++++++++", "这是专门存放图片url集合里的数据：" + title);
@@ -168,6 +173,23 @@ public class MainFragment extends Fragment {
                             banner.setIndicatorGravity(BannerConfig.LEFT);
                             banner.setDelayTime(3000);
                             banner.start();
+                            banner.setOnBannerListener(new OnBannerListener() {
+                                @Override
+                                public void OnBannerClick(int position) {
+                                    Intent intent = new Intent(getContext(), ShowNewsActivity.class);
+                                    if (imgurl.get(position).equals("")) {
+                                        Toast.makeText(getContext(), "新闻地址丢失", Toast.LENGTH_LONG).show();
+                                    } else {
+                                        intent.putExtra("url", imgurl.get(position));
+                                        startActivity(intent);
+                                        getActivity().overridePendingTransition(R.anim.anim_scale, R.anim.anim_alpha);
+
+                                    }
+
+                                    Log.i("tag", "你点了第" + position + "张轮播图");
+                                }
+                            });
+
                         } catch (ActivityNotFoundException gg) {
                             banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE);
                             banner.setImageLoader(new MyImageLoader());

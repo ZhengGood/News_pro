@@ -77,9 +77,9 @@ public class ShowNewsActivity extends AppCompatActivity {
 
         helper = new MyDatabaseHelper(this, "UserDB.db", null, 1);
 
-        mDialog = new ProgressDialog(ShowNewsActivity.this);
-
-        mDialog.setMessage("玩命加载ing");
+//        mDialog = new ProgressDialog(ShowNewsActivity.this);
+//
+//        mDialog.setMessage("玩命加载ing");
 
 
         mWebView.setWebViewClient(new WebViewClient() {
@@ -104,8 +104,9 @@ public class ShowNewsActivity extends AppCompatActivity {
         final String news_picurl = intent.getStringExtra("pic_url");
 
         WebSettings webSettings = mWebView.getSettings();
-        webSettings.setUserAgentString("Android");
+        webSettings.setUserAgentString("mac");
         webSettings.setJavaScriptEnabled(true);//支持Js
+
         int current = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
         if (current == Configuration.UI_MODE_NIGHT_YES) {
             mWebView.setDayOrNight(false);
@@ -122,14 +123,21 @@ public class ShowNewsActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 super.onProgressChanged(view, newProgress);
-//                mWebView.loadUrl("JavaScript:function mFunc(){document.querySelector('#logo').querySelector('img').src=\"https://photocdn.sohu.com/20150906/mp30746702_1441530698601_2_th.jpg\";}mFunc();");
-//                mWebView.loadUrl("JavaScript:function setTop(){document.querySelector('[class=\"topbar\"]').style.display=\"none\";}setTop();");//顶部导航
+                mWebView.loadUrl("JavaScript:function setTop(){document.querySelector('[class=\"reply_count js-replylink\"]').style.display=\"none\";}setTop();");//跟帖消失
 
+                mWebView.loadUrl("JavaScript:function setTop(){document.querySelector('[class=\"channel_logo\"]').style.display=\"none\";}setTop();");//顶部logo消失
+                mWebView.loadUrl("JavaScript:function setTop(){document.querySelector('[class=\"topbar\"]').style.backgroundColor='#13227a';\n}setTop();");//顶部导航蓝色
+                mWebView.loadUrl("JavaScript:function setTop(){document.querySelector('.windShare-mask').style.background='transparent'\n}setTop();");//分享底部颜色
+                mWebView.loadUrl("JavaScript:function setTop(){document.querySelector('[class=\"windShare-panel\"]').style.background='none'\n}setTop();");//取消
 
-                mWebView.loadUrl("JavaScript:function setTop(){document.querySelector('header').style.display=\"none\";}setTop();");//顶部导航
+                mWebView.loadUrl("JavaScript:function setTop(){document.querySelector('[class=\"back_home\"]').style.display=\"none\";}setTop();");//顶部导航
+                mWebView.loadUrl("JavaScript:function setTop(){document.querySelector('[class=\"windShare-shutdown\"]').style.display=\"none\";}setTop();");//底部取消
+                mWebView.loadUrl("JavaScript:function setTop(){document.querySelector('[class=\"windShare-panel\"]').style.backgroundColor='#e6e6e600';\n}setTop();");//顶部导航
+                mWebView.loadUrl("JavaScript:function setTop(){document.querySelector('.windShare-mask .windShare-panel').style.borderBottom='0px'\n}setTop();");//分享高度
+                mWebView.loadUrl("JavaScript:function setTop(){document.querySelector('.windShare-mask .windShare-panel').style.padding='0px'\n}setTop();");//顶部导航
 
+                mWebView.loadUrl("JavaScript:function setTop(){document.querySelector('.windShare-mask .windShare-panel').style.bottom='0px'\n}setTop();");//顶部导航
 
-                mWebView.loadUrl("JavaScript:function setTop(){document.querySelector('header').style.display=\"none\";}setTop();");//顶部导航
                 mWebView.loadUrl("JavaScript:function setTop(){document.querySelector('article').style=\"overflow: hidden; max-height: none;\";}setTop();");//自动高度
                 mWebView.loadUrl("JavaScript:function setTop(){document.querySelector('[class=\"m_article list-item list-article  clearfix\"]').style.display=\"none\";}setTop();");//<!-- 相关推荐 -->
                 mWebView.loadUrl("JavaScript:function setTop(){document.querySelector('[class=\"footer\"]').style.display=\"none\";}setTop();");    // 打开APP

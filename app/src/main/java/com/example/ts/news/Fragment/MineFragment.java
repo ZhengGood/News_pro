@@ -213,7 +213,8 @@ public class MineFragment extends Fragment implements View.OnClickListener {
 
                 final CustomDialog dialog = new CustomDialog(getContext(), R.style.customDialog, R.layout.dialog_exit);
                 dialog.show();
-
+                TextView dialog_mess = (TextView) dialog.findViewById(R.id.dialog_mess);
+                dialog_mess.setText("提示");
                 TextView dialog_title = (TextView) dialog.findViewById(R.id.dialog_title);
                 dialog_title.setText("退出此账号吗~");
                 TextView tvCancel = (TextView) dialog.findViewById(R.id.cancel);
@@ -241,13 +242,6 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                     }
                 });
 
-
-//                FileCacheUtils.cleanInternalCache(getContext());
-//
-//                //重新跳转到登录页面
-//                Intent intent = new Intent(getContext(), LoginOrRegisterActivity.class);
-//                startActivity(intent);
-//                getActivity().finish();
             }
             break;
             case R.id.collection: {

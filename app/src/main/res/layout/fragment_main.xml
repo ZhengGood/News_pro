@@ -81,8 +81,8 @@
             app:indicator_drawable_unselected="@color/colorGrey"
             app:title_height="50dp"
             app:title_textcolor="@color/colorselect"
-
-            ></com.youth.banner.Banner>
+            app:banner_default_image="@drawable/def"
+            />
 
 
     </LinearLayout>

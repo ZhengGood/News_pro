@@ -1,42 +1,23 @@
 package com.example.ts.news.Activity;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.ProgressDialog;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Build;
-import android.os.Environment;
-import android.os.Handler;
-import android.os.Message;
+import android.support.annotation.RequiresApi;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatDelegate;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.ts.news.Bean.News;
-import com.example.ts.news.Bean.UpdateInfo;
 import com.example.ts.news.Fragment.MainFragment;
 import com.example.ts.news.Fragment.MineFragment;
 import com.example.ts.news.Fragment.SettingFragment;
@@ -44,20 +25,10 @@ import com.example.ts.news.R;
 import com.example.ts.news.Utils.ApplicationUtil;
 
 
-
 import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-
-
-    private UpdateInfo info;
-    private ProgressDialog progressDialog;
-    UpdateInfoService updateInfoService;
 
 
     private LinearLayout ll_main, ll_setting, ll_mine;
@@ -93,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         initView();
         initFragment();
 
+
         ll_main.setOnClickListener(this);
         ll_setting.setOnClickListener(this);
         ll_mine.setOnClickListener(this);
@@ -107,6 +79,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (this.checkSelfPermission(str) != PackageManager.PERMISSION_GRANTED) {
                     //申请权限
                     this.requestPermissions(permissions, REQUEST_CODE_CONTACT);
+
                     return;
                 }
             }
@@ -114,20 +87,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-
     private void initView() {
 
-        ll_main = (LinearLayout) findViewById(R.id.layout_main);
-        ll_setting = (LinearLayout) findViewById(R.id.layout_setting);
-        ll_mine = (LinearLayout) findViewById(R.id.layout_mine);
+        ll_main = findViewById(R.id.layout_main);
+        ll_setting = findViewById(R.id.layout_setting);
+        ll_mine = findViewById(R.id.layout_mine);
 
-        text_main = (TextView) findViewById(R.id.text_main);
-        text_setting = (TextView) findViewById(R.id.text_setting);
-        text_mine = (TextView) findViewById(R.id.text_mine);
+        text_main = findViewById(R.id.text_main);
+        text_setting = findViewById(R.id.text_setting);
+        text_mine = findViewById(R.id.text_mine);
 
-        img_main = (ImageView) findViewById(R.id.img_main);
-        img_seting = (ImageView) findViewById(R.id.img_setting);
-        img_mine = (ImageView) findViewById(R.id.img_mine);
+        img_main = findViewById(R.id.img_main);
+        img_seting = findViewById(R.id.img_setting);
+        img_mine = findViewById(R.id.img_mine);
         img_main.setImageResource(R.drawable.main_selected);
 
     }
@@ -179,7 +151,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 addFragment(mainFragment);
 
                 showFragment(mainFragment);
-                if (current  == Configuration.UI_MODE_NIGHT_YES) {
+                if (current == Configuration.UI_MODE_NIGHT_YES) {
                     text_main.setTextColor(Color.parseColor("#B15C28"));
                     text_setting.setTextColor(Color.WHITE);
                     text_mine.setTextColor(Color.WHITE);
@@ -203,11 +175,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 showFragment(settingFragment);
 
-                if (current  == Configuration.UI_MODE_NIGHT_YES) {
+                if (current == Configuration.UI_MODE_NIGHT_YES) {
                     text_setting.setTextColor(Color.parseColor("#B15C28"));
                     text_main.setTextColor(Color.WHITE);
                     text_mine.setTextColor(Color.WHITE);
-                }else{
+                } else {
                     text_setting.setTextColor(Color.parseColor("#13227a"));
                     text_main.setTextColor(Color.BLACK);
                     text_mine.setTextColor(Color.BLACK);
@@ -231,7 +203,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     text_mine.setTextColor(Color.parseColor("#B15C28"));
                     text_main.setTextColor(Color.WHITE);
                     text_setting.setTextColor(Color.WHITE);
-                }else{
+                } else {
                     text_mine.setTextColor(Color.parseColor("#13227a"));
                     text_main.setTextColor(Color.BLACK);
                     text_setting.setTextColor(Color.BLACK);
