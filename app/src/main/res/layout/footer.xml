@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerInParent="true"
+    android:orientation="horizontal"
+    android:background="@color/colorWhite">
+
+    <LinearLayout
+        android:id="@+id/ll_footer"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="vertical"
+        android:background="@color/colorWhite">
+
+
+        <ProgressBar
+            android:id="@+id/footer_pb"
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_toLeftOf="@id/ll_header"
+            android:layout_weight="2"
+            android:indeterminateTint="@color/colorPrimary"
+            android:maxHeight="20dip"
+            android:minWidth="20dip"
+            />
+
+
+        <TextView
+            android:id="@+id/footer_tv"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:text="內容正在加载..."
+            android:textSize="16sp" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

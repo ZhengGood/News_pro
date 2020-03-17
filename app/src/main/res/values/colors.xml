@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#13227a</color> //导航栏
+    <color name="colorPrimaryDark">#303F9F</color>  //状态栏
+    <color name="colorAccent">#13227a</color>    //复选框  输入栏
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorDiag">#FFFFFF</color>
+    <color name="colorlan">#13227a</color>
+    <color name="colorGrey">#CECECE</color>
+    <color name="textColorPrimary">#FFFFFF</color>  //状态栏字体
+    <color name="colorselect">#FFFFFF</color>
+
+
+</resources>
