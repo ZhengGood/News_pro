@@ -36,6 +36,7 @@ import com.example.ts.news.Activity.CoverActivity;
 
 import com.example.ts.news.Activity.CustomDialog;
 
+import com.example.ts.news.Activity.CustomProgressDialog;
 import com.example.ts.news.Bean.UpdateInfo;
 import com.example.ts.news.R;
 import com.example.ts.news.Utils.ApplicationUtil;
@@ -149,7 +150,7 @@ public class SettingFragment extends Fragment implements View.OnClickListener {
         TextView dialog_mess = (TextView) dialog.findViewById(R.id.dialog_mess);
         dialog_mess.setText("提示");
         TextView dialog_title = (TextView) dialog.findViewById(R.id.dialog_title);
-        dialog_title.setText("立即更新吗？");
+        dialog_title.setText("检查更新吗？");
         TextView tvCancel = (TextView) dialog.findViewById(R.id.cancel);
         tvCancel.setText("取消");
         TextView tvOk = (TextView) dialog.findViewById(R.id.ok);
@@ -191,14 +192,11 @@ public class SettingFragment extends Fragment implements View.OnClickListener {
                 showUpdateDialog();
             }
         }
-
-        ;
     };
 
     private void showUpdateDialog() {
         final CustomDialog builder = new CustomDialog(getContext(), R.style.customDialog, R.layout.dialog_exit);
         builder.show();
-
         TextView dialog_mess = (TextView) builder.findViewById(R.id.dialog_mess);
         dialog_mess.setText("新版本 " + info.getVersionCode() + ".0.0 版本来了");
         TextView dialog_title = (TextView) builder.findViewById(R.id.dialog_title);
@@ -288,9 +286,9 @@ public class SettingFragment extends Fragment implements View.OnClickListener {
 
         final ProgressDialog progressDialog = new ProgressDialog(getActivity());
         progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        progressDialog.setTitle("升级App");
+        progressDialog.setTitle("升级App中");
         progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.setMessage("新功能");
+        progressDialog.setMessage(Html.fromHtml("<font color='black' size='20'>" + info.getContent() + "</font>"));
         progressDialog.setProgress(0);
         progressDialog.setIcon(R.drawable.version);
         progressDialog.setCancelable(true);
@@ -300,11 +298,10 @@ public class SettingFragment extends Fragment implements View.OnClickListener {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // TODO Auto-generated method stub
-                        Toast.makeText(getContext(), "耐心等待一下~", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), "耐心等待一下~正在后台下载", Toast.LENGTH_LONG).show();
                     }
                 });
         progressDialog.show();
-
 
 
         new Thread() {
@@ -420,15 +417,15 @@ public class SettingFragment extends Fragment implements View.OnClickListener {
                     Toast.makeText(getContext(), "当前已为夜间模式", Toast.LENGTH_SHORT).show();
 
                 } else {
-                    ((AppCompatActivity) getActivity()).getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-
+//                    int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
 
                     Activity activity = (Activity) context;
+                    ((AppCompatActivity) getActivity()).getDelegate().setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                     activity.overridePendingTransition(R.anim.anim_scale, R.anim.anim_alpha);
-                    activity.recreate();
                     getActivity().finish();
                     activity.overridePendingTransition(R.anim.anim_scale, R.anim.anim_alpha);
                     startActivity(intent);
+
                 }
             }
             break;
@@ -440,7 +437,7 @@ public class SettingFragment extends Fragment implements View.OnClickListener {
                 int current = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
 
                 if (current == Configuration.UI_MODE_NIGHT_YES) {
-                    ((AppCompatActivity) getActivity()).getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    ((AppCompatActivity) getActivity()).getDelegate().setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
                     Activity activity = (Activity) context;
                     activity.overridePendingTransition(R.anim.anim_scale, R.anim.anim_alpha);
@@ -475,7 +472,37 @@ public class SettingFragment extends Fragment implements View.OnClickListener {
  * 关于
  */
             case R.id.about_app: {
-                Toast.makeText(getContext(), "@News news.com version 1.0", Toast.LENGTH_SHORT).show();
+
+                final CustomDialog builder2 = new CustomDialog(getContext(), R.style.customDialog, R.layout.dialog_exit);
+                builder2.show();
+                TextView dialog_mess = (TextView) builder2.findViewById(R.id.dialog_mess);
+                dialog_mess.setText("欢迎使用 新闻 -News");
+                TextView dialog_title = (TextView) builder2.findViewById(R.id.dialog_title);
+                dialog_title.setText(Html.fromHtml("<font color='black' size='20'>" + "集新闻浏览、收藏、<br>为一体的高效<br>新闻App "+ "</font>"));
+                TextView tvCancel = (TextView) builder2.findViewById(R.id.cancel);
+                tvCancel.setText("取消");
+                TextView tvOk = (TextView) builder2.findViewById(R.id.ok);
+                tvOk.setText("我的主页");
+                tvOk.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        builder2.dismiss();
+                        Uri uri = Uri.parse("https://zhenggood.github.io./");    //设置跳转的网站
+                        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                        startActivity(intent);
+
+                    }
+                });
+
+
+                tvCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        builder2.dismiss();
+
+                    }
+                });
+
             }
             break;
 /**

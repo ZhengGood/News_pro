@@ -18,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.ts.news.Adapter.NewsAdapter;
+import com.example.ts.news.Bean.News;
 import com.example.ts.news.Fragment.MainFragment;
 import com.example.ts.news.Fragment.MineFragment;
 import com.example.ts.news.Fragment.SettingFragment;
@@ -42,6 +44,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView img_main, img_seting, img_mine;
     private TextView text_main, text_setting, text_mine;
 
+    private int index = 0;
+    private List<News> list;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -61,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         initView();
         initFragment();
 
@@ -86,6 +93,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
     }
+
+
 
     private void initView() {
 
